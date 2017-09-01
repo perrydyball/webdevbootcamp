@@ -1,0 +1,15 @@
+{
+  "name": "colorgamesolution",
+  "version": "1.0.0",
+  "description": "",
+  "main": "colorGame.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jshint": "^2.9.5"
+  }
+}
