@@ -150,7 +150,7 @@ function resetGame(num){
     squares[i].style.backgroundColor = colors[i];
   }
   //reset h1 background
-  h1Display.style.backgroundColor = "#232323";
+  h1Display.style.backgroundColor = "steelblue";
   //remove message
   messageDisplay.textContent = "";
   //reset the reset button text
