@@ -1,0 +1,6 @@
+#container {
+  width: 360px;
+  /* use the margin trick to centre the selection */
+  margin: 0 auto;
+  border: 2px solid grey;
+}

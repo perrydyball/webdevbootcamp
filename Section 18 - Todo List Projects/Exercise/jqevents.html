@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>jQuery Events</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous">
+    </script>
+    <style type="text/css">
+      .correct {
+        color: green;
+      }
+      .wrong {
+        color: red;
+        background-color: pink;
+      }
+      .done {
+        color: grey;
+        text-decoration: line-through;
+      }
+    </style>
+  </head>
+  <body>
+
+    <h1>jQuery Events Demo Page</h1>
+    <h1>jQuery Events Demo Page</h1>
+    <h1>jQuery Events Demo Page</h1>
+
+    <input id="first"type="text" placeholder="first name">
+    <input id="last" type="text" placeholder="last name">
+
+    <select name="Team" id="team">
+      <option value="NCFC">Canaries</option>
+      <option value="ITFC">Binners</option>
+      <option value="NTFC">Cobblers</option>
+    </select>
+
+    <ul>
+      <li>Skittles</li>
+      <li>Starburst</li>
+      <li>Snickers</li>
+    </ul>
+
+    <p>Para 1</p>
+    <p>Para 2</p>
+    <p>Para 3</p>
+
+    <button>Don't click</button>
+    <button>Really don't</button>
+    <button>Last warning</button>
+
+    <script>
+
+      //note below inline script documents each method - if run all at once you just get the end state after all
+      //script has been executed
+
+      //.click to add a click event listener
+      $("h1").click(function(){
+        alert("h1 clicked");
+      })
+      //.click on a collection - note '$(this)' as jQuery version of vanilla 'this'
+      $("button").click(function(){
+        $(this).css("background-color", "pink");
+      })
+
+      //.keypress to add a keypress event listener
+      $("#first").keypress(function(event){
+        console.log("You pressed a key in first name");
+        if(event.which === 13) {
+          alert("You hit [enter] in first name");
+        }
+      })
+
+      //.on to add an event listener of a specified type (used 99% of time)
+      // NOTE
+      //.click only works for elements currently on the page - not ones that get added
+      //.on("click", f...) works for all current & future elements on the page
+
+      $("h1").on("click", function(){
+        $(this).css("background-color", "purple");
+      })
+
+      $("#last").on("keypress", function(event){
+        console.log("You pressed a key in last name");
+        if(event.which === 13) {
+          alert("You hit [enter] in last name");
+        }
+      })
+
+      //simulate a hover
+      $("p").on("mouseenter", function(event){
+        $(this).css("font-weight", "bold");
+      })
+      $("p").on("mouseleave", function(event){
+        $(this).css("font-weight", "normal");
+      })
+
+    </script>
+  </body>
+</html>
+
+
