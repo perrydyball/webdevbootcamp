@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>jQuery Methods</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous">
+    </script>
+    <style type="text/css">
+      .correct {
+        color: green;
+      }
+      .wrong {
+        color: red;
+        background-color: pink;
+      }
+      .done {
+        color: grey;
+        text-decoration: line-through;
+      }
+    </style>
+  </head>
+  <body>
+
+    <h1>jQuery Methods Demo Page</h1>
+
+    <input type="text" placeholder="your name">
+
+    <select name="Team" id="team">
+      <option value="NCFC">Canaries</option>
+      <option value="ITFC">Binners</option>
+      <option value="NTFC">Cobblers</option>
+    </select>
+
+    <ul>
+      <li>Skittles</li>
+      <li>Starburst</li>
+      <li>Snickers</li>
+    </ul>
+
+    <img src="http://i.imgur.com/zvANQeG.jpg">
+    <img src="http://i.imgur.com/zvANQeG.jpg">
+    <img src="http://i.imgur.com/zvANQeG.jpg">
+
+    <p>Link to google</p>
+
+    <button>Don't click</button>
+    <button>Really don't</button>
+    <button>Last warning</button>
+
+    <script>
+
+      //note below inline script documents each method - if run all at once you just get the end state after all
+      //script has been executed
+
+      //.text to set text-content
+      $("h1").text("Updated jQuery Methods Demo Page");
+
+      //.html to set inner-html
+      $("ul").html("<li>Marathon</li><li>Twix</li><li>Mars</li>");
+      //note the single quotes
+      $("p").html("<a href='http://google.com'>Updated link to google</a>");
+
+      //.css to change css properties
+      $("img").css("width", "200px");
+
+      //.attr to retrieve or set an html attribute
+      $("img:first").attr("src", "http://videos.revision3.com/revision3/images/shows/breakingtrail/0111/breakingtrail--0111--the-ever-adorable-pine-marten--large.thumb.jpg");
+      $("img:last").attr("src", "http://videos.revision3.com/revision3/images/shows/breakingtrail/0111/breakingtrail--0111--the-ever-adorable-pine-marten--large.thumb.jpg");
+
+      //.val to retrieve or set an input value or from an option <select> list
+      //use .val() to clear a text input
+      $("input").val("");
+
+      //.addClass / .removeClass / .toggleClass
+      $("h1").addClass("correct");
+      $("h1").removeClass("correct");
+      $("li").addClass("wrong");
+      $("li").removeClass("wrong");
+      $("li").addClass("correct");
+      // :first same as .first()
+      $("li:first").toggleClass("done");
+
+    </script>
+  </body>
+</html>
+
+

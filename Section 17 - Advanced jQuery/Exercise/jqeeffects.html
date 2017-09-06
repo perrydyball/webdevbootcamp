@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>jQuery Effects</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous">
+    </script>
+    <style type="text/css">
+      div {
+        width: 100px;
+        height: 100px;
+        background-color: teal;
+        float: left;
+        margin: 20px;
+      }
+    </style>
+  </head>
+  <body>
+
+    <button id="fout">Fade Out</button>
+    <button id="fin">Fade In</button>
+    <button id="ftoggle">Fade Toggle</button>
+    <button id="sup">Slide Up</button>
+    <button id="sdown">Slide Down</button>
+    <button id="stoggle">Slide Toggle</button>
+
+    <p>
+      <div>Please don't fade me</div>
+      <div>I'm begging you</div>
+      <div>Help help help!</div>
+    </p>
+
+    <script>
+
+      //note below inline script documents each method - if run all at once you just get the end state after all
+      //script has been executed
+
+      //.fadeOut to add a fadeOut effect when 'out' button clicked
+      $("#fout").on("click", function(){
+        $("div").fadeOut(500, function(){
+          //use a callback function to remove objects at end of fade
+          //$(this).remove();
+          console.log("Use $(this).remove(); to remove objects at end of transition")
+        });
+      })
+
+      //.fadeIn to add a fadeIn effect on all buttons when 'in' button clicked (after a prior fadeOut)
+      $("#fin").on("click", function(){
+        $("div").fadeIn(500);
+      })
+
+      //.fadeToggle to add a fadeToggle effect when 'toggle' button clicked
+      $("#ftoggle").on("click", function(){
+        $("div").fadeToggle(500);
+      })
+
+      //.slideDown to add a slideDown effect when 'down' button clicked and remove objects at end of fade
+      $("#sdown").on("click", function(){
+        $("div").slideDown(500);
+      })
+
+      //.fadeIn to add a fadeIn effect on all buttons when 'up' button clicked (after a prior fadeOut)
+      $("#sup").on("click", function(){
+        $("div").slideUp(500);
+      })
+
+      //.fadeToggle to add a fadeToggle effect when 'toggle' button clicked
+      $("#stoggle").on("click", function(){
+        $("div").slideToggle(500);
+      })
+
+    </script>
+  </body>
+</html>
+
+
