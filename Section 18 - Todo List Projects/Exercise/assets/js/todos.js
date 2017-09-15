@@ -4,7 +4,7 @@ $("ul").on("click", "li", function(){
   $(this).toggleClass("completed");
 })
 
-//Delete todo (by clicking the X that is in a <span>
+//Delete todo (by clicking the icon that is in a <span>
 //Again use "on" so that new <span> items in the parent <ul> also get a click listener
 //Use the "event" handle to stop event bubbling - i.e. stop event on parent objects (ul/#container/body) from firing
 $("ul").on("click", "span", function(event){
@@ -24,7 +24,11 @@ $("input[type='text']").keypress(function(event){
     //Clear the input field
     $(this).val("");
     //Create a new li using append
-    $("ul").append("<li><span>X</span> " + todoText + "</li>");
+    $("ul").append("<li><span><i class='fa fa-trash' aria-hidden='true'></i></span> " + todoText + "</li>");
   }
 })
 
+//Show/Hide the add todo input
+$(".fa-plus").click(function() {
+  $("input[type='text']").fadeToggle();
+})

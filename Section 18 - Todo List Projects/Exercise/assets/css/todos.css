@@ -1,11 +1,114 @@
+body {
+  font-family: roboto;
+  /* backgroud gradients from https://uigradients.com */
+  background: #00c3ff;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #ffff1c, #00c3ff);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #ffff1c, #00c3ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
 #container {
   width: 360px;
-  /* use the margin trick to centre the selection */
-  margin: 0 auto;
-  border: 2px solid grey;
+  /* use the left/right auto margin trick to centre the selection */
+  margin: 100px auto;
+  /* border: 2px solid grey; */
+  background-color: #f7f7f7;
+  /* create a very subtle shadow effect on the container */
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  background-color: #2980b9;
+  /* text color */
+  color: white;
+  /* remove all margins */
+  margin: 0;
+  /* padding top/bottom 10pc, left/right 20px */
+  padding: 10px 20px;
+  /* make uppercase */
+  text-transform: uppercase;
+  font-size: 24px;
+  /* h1 by default is bold - make normal */
+  font-weight: normal;
+}
+
+ul {
+  /* remove bullet points from list items */
+  list-style: none;
+  /* remove margin & padding */
+  margin: 0;
+  padding: 0;
+}
+
+/* make all li white */
+li {
+  background-color: white;
+  height: 40px;
+  /* make the line height the same as the li height so text is vertically centered */
+  line-height: 40px;
+  /* text color */
+  color: #666;
+}
+
+/* make the even numbered li same color as the #container (leaves the odd ones as white) */
+li:nth-child(2n) {
+  background-color: #f7f7f7;
+}
+
+span {
+  background-color: #e74c3c;
+  /* text icon color */
+  color: white;
+  /* make the height the same as the parent li height */
+  height: 40px;
+  /* make the span invisible  */
+  width: 0px;
+  /* create space between the span and the li text */
+  margin-right: 20px;
+  /* centre the icon */
+  text-align: center;
+  /* makes the span content fill the height/width */
+  display: inline-block;
+  /* make the span have a transition*/
+  transition: 0.2s linear;
+  /* make the text icon invisible */
+  opacity: 0;
+}
+
+li:hover span {
+  /* make the span square (40px x 40px)  */
+  width: 40px;
+  /* make the text icon visible */
+  opacity: 1.0;
 }
 
 .completed {
+  /* text color */
   color: grey;
+  /* strikethrough */
   text-decoration: line-through;
+}
+
+input {
+  font-size: 18px;
+  background-color: #f7f7f7;
+  /* make the input box include padding and border but not margin  (should add equivs for moz/webkit etc)*/
+  box-sizing: border-box;
+  /* make the width fill the container */
+  width: 100%;
+  /* padding top right bottom left */
+  padding: 13px 13px 13px 20px;
+  /* text color */
+  color: #2980b9;
+  /* create an invisible border of same size as used when iput is focused */
+  border: 3px solid rgba(0, 0, 0, 0);
+}
+
+input:focus {
+  background-color: white;
+  border: 3px solid #2980b9;
+}
+
+/* make the h1 icon right aligned */
+.fa-plus {
+  float: right;
 }
