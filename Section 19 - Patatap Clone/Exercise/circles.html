@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Circles</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Link to paper.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.11.4/paper-full.min.js" integrity="sha256-6JvCFx66pzkbqlMKQ+7bRGX7HIUlpEyF0iLXRP/bx1M=" crossorigin="anonymous"></script>
+    <!-- For paper you need to set the propoerties of the canvas -->
+    <link rel="stylesheet" type="text/css" href="assets/css/circles.css">
+    <!-- paperscript code -->
+    <script type="text/paperscript" canvas="myCanvas">
+      var rows = 10;
+      var cols = 10;
+      var xPos;
+      var yPos;
+      var xOffset = 50;
+      var yOffset = 50;
+      var radius = 5;
+      var rgbOffset = 25;
+      var rgbStr;
+      for (var x=0; x < cols; x++) {
+        for (var y=0; y < rows; y++) {
+          xPos = xOffset * (x+1);
+          yPos = yOffset * (y+1);
+          //rgbStr = "rgb(" + (rgbOffset * x) + ", "  + (rgbOffset * y) + ", "  + (rgbOffset * (x*y)) % 255 + ")";
+          rgbStr = "rgb(" + (Math.floor(Math.random() * 255) + 1) + ", " + (Math.floor(Math.random() * 255) + 1) + ", " + (Math.floor(Math.random() * 255) + 1) + ")";
+          //console.log("xPos: ", + xPos + " yPos: " + yPos);
+          // Create a Paper.js Path to draw a circle
+          new Path.Circle(new Point(xPos, yPos), radius).fillColor = rgbStr;
+        }
+      }
+    </script>
+  </head>
+  <body>
+      <!-- Define the html canvas for the animation -->
+      <canvas id="myCanvas" resize></canvas>
+  </body>
+</html>
