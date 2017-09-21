@@ -1,24 +1,77 @@
 <!DOCTYPE html>
+<!-- Needs to run as a local web server to avoid crossorigin issues when testing locally-->
+<!-- npm install -g http-server -->
+<!-- http-server --cors [in webdevbootcamp dir] to prevent ‘Access-Control-Allow-Origin’ header issues -->
+<!-- test via http://localhost:8080/Section%2019%20-%20Patatap%20Clone/Exercise/index.html -->
+<!-- CTRL-C to stop server -->
+<!-- howler sounds src to be changed to github links when checked in / deployed -->
+
 <html lang="en">
   <head>
-    <title>Circles</title>
+    <title>Paper Piano</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.11.4/paper-full.min.js" integrity="sha256-6JvCFx66pzkbqlMKQ+7bRGX7HIUlpEyF0iLXRP/bx1M=" crossorigin="anonymous"></script>
+    <!-- Link to paper.js CDN -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.11.4/paper-full.min.js" integrity="sha256-6JvCFx66pzkbqlMKQ+7bRGX7HIUlpEyF0iLXRP/bx1M=" crossorigin="anonymous"></script>
+    <!-- Link to howler.js CDN -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.4/howler.min.js" integrity="sha256-QX4/AXuyOeg4mIyJz3fZ9c1St34LbN2zJfPv9wgyjGo=" crossorigin="anonymous"></script>
+    <!-- Link to howler.js local
+    <script type="text/javascript" src="assets/js/lib/howlerjs-v2.0.4/dist/howler.min.js"></script> -->
+    <!-- For paper you need to set the propoerties of the canvas -->
+    <link rel="stylesheet" type="text/css" href="assets/css/circles.css">
+    <!-- paperscript code -->
     <script type="text/paperscript" canvas="myCanvas">
-      // Create a Paper.js Path to draw a line into it:
-      var path = new Path();
-      // Give the stroke a color
-      path.strokeColor = 'black';
-      var start = new Point(200, 100);
-      // Move to start and draw a line from there
-      path.moveTo(start);
-      // Note the plus operator on Point objects.
-      // PaperScript does that for us, and much more!
-      path.lineTo(start + [ 100, -50 ]);
+
+    // Declare vars
+    var circles = [];
+    var sound = new Howl({
+      src: ['http://localhost:8080/Section%2019%20-%20Patatap%20Clone/Exercise/assets/sounds/bubbles.mp3']
+    });
+
+    function onKeyDown(event) {
+      // When a key is pressed, create a circle in a random location
+      // This gives the bottom right position on the window size
+      var maxPoint = new Point(view.size.width, view.size.height);
+      // Creates a random point in range 0 to 1
+      var randomPoint = Point.random();
+      // Multiply the two together to get a random point in the viewport
+      var point = maxPoint * randomPoint;
+      // Plot the point
+      var newCircle = new Path.Circle(point, 500);
+      // Randomise the color of the circle
+      var rgbStr = "rgb(" + (Math.floor(Math.random() * 255) + 1) + ", " + (Math.floor(Math.random() * 255) + 1) + ", " + (Math.floor(Math.random() * 255) + 1) + ")";
+      newCircle.fillColor = rgbStr;
+      // Add to the array
+      circles.push(newCircle);
+      // Play sound
+      sound.play();
+    }
+
+    // // Create a circle
+    // var animatedCircle = new Path.Circle({
+    //   center: [300, 300],
+    //   radius: 100,
+    //   fillColor: 'red'
+    // });
+    // circles.push(animatedCircle);
+    // // This method works as well
+    // var animatedCircle = new Path.Circle(new Point(300, 300), 100);
+    // animatedCircle.fillColor = "red";
+    // // but this does not (when combined with the onFrame function - hue undefined)
+    // var animatedCircle = new Path.Circle(new Point(300, 300), 100).fillColor = "red";
+
+    function onFrame(event) {
+      // Each frame, change the fill color of the path slightly by adding 1 to its hue:
+      for (var i = 0; i < circles.length; i++) {
+        circles[i].fillColor.hue += 1;
+        circles[i].scale(.9);
+      }
+    }
+
     </script>
   </head>
   <body>
+      <!-- Define the html canvas for the animation -->
       <canvas id="myCanvas" resize></canvas>
   </body>
 </html>
