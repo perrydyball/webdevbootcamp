@@ -19,55 +19,264 @@
     <script type="text/javascript" src="assets/js/lib/howlerjs-v2.0.4/dist/howler.min.js"></script> -->
     <!-- For paper you need to set the propoerties of the canvas -->
     <link rel="stylesheet" type="text/css" href="assets/css/circles.css">
+
     <!-- paperscript code -->
     <script type="text/paperscript" canvas="myCanvas">
-
     // Declare vars
-    var circles = [];
-    var sound = new Howl({
-      src: ['http://localhost:8080/Section%2019%20-%20Patatap%20Clone/Exercise/assets/sounds/bubbles.mp3']
-    });
+    var shapes = [];
+    var newShape;
 
-    function onKeyDown(event) {
-      // When a key is pressed, create a circle in a random location
-      // This gives the bottom right position on the window size
-      var maxPoint = new Point(view.size.width, view.size.height);
-      // Creates a random point in range 0 to 1
-      var randomPoint = Point.random();
-      // Multiply the two together to get a random point in the viewport
-      var point = maxPoint * randomPoint;
-      // Plot the point
-      var newCircle = new Path.Circle(point, 500);
-      // Randomise the color of the circle
-      var rgbStr = "rgb(" + (Math.floor(Math.random() * 255) + 1) + ", " + (Math.floor(Math.random() * 255) + 1) + ", " + (Math.floor(Math.random() * 255) + 1) + ")";
-      newCircle.fillColor = rgbStr;
-      // Add to the array
-      circles.push(newCircle);
-      // Play sound
-      sound.play();
-    }
-
-    // // Create a circle
-    // var animatedCircle = new Path.Circle({
-    //   center: [300, 300],
-    //   radius: 100,
-    //   fillColor: 'red'
-    // });
-    // circles.push(animatedCircle);
-    // // This method works as well
-    // var animatedCircle = new Path.Circle(new Point(300, 300), 100);
-    // animatedCircle.fillColor = "red";
-    // // but this does not (when combined with the onFrame function - hue undefined)
-    // var animatedCircle = new Path.Circle(new Point(300, 300), 100).fillColor = "red";
-
-    function onFrame(event) {
-      // Each frame, change the fill color of the path slightly by adding 1 to its hue:
-      for (var i = 0; i < circles.length; i++) {
-        circles[i].fillColor.hue += 1;
-        circles[i].scale(.9);
+    var keyData = {
+      q: {
+        sound: new Howl({
+          src: ['assets/sounds/bubbles.mp3']
+        }),
+        color: '#1abc9c',
+        shape: "circle"
+      },
+      w: {
+        sound: new Howl({
+          src: ['assets/sounds/clay.mp3']
+        }),
+        color: '#2ecc71',
+        shape: "square"
+      },
+      e: {
+        sound: new Howl({
+          src: ['assets/sounds/confetti.mp3']
+        }),
+        color: '#3498db',
+        shape: "star"
+      },
+      r: {
+        sound: new Howl({
+          src: ['assets/sounds/corona.mp3']
+        }),
+        color: '#9b59b6',
+        shape: "pologon"
+      },
+        t: {
+        sound: new Howl({
+          src: ['assets/sounds/dotted-spiral.mp3']
+        }),
+        color: '#34495e',
+        shape: "other"
+      },
+      y: {
+        sound: new Howl({
+          src: ['assets/sounds/flash-1.mp3']
+        }),
+        color: '#16a085',
+        shape: "circle"
+      },
+      u: {
+        sound: new Howl({
+          src: ['assets/sounds/flash-2.mp3']
+        }),
+        color: '#27ae60',
+        shape: "square"
+      },
+      i: {
+        sound: new Howl({
+          src: ['assets/sounds/flash-3.mp3']
+        }),
+        color: '#2980b9',
+        shape: "star"
+      },
+      o: {
+        sound: new Howl({
+          src: ['assets/sounds/glimmer.mp3']
+        }),
+        color: '#8e44ad',
+        shape: "polygon"
+      },
+      p: {
+        sound: new Howl({
+          src: ['assets/sounds/moon.mp3']
+        }),
+        color: '#2c3e50',
+        shape: "other"
+      },
+      a: {
+        sound: new Howl({
+          src: ['assets/sounds/pinwheel.mp3']
+        }),
+        color: '#f1c40f',
+        shape: "circle"
+      },
+      s: {
+        sound: new Howl({
+          src: ['assets/sounds/piston-1.mp3']
+        }),
+        color: '#e67e22',
+        shape: "square"
+      },
+        d: {
+        sound: new Howl({
+          src: ['assets/sounds/piston-2.mp3']
+        }),
+        color: '#e74c3c',
+        shape: "star"
+      },
+      f: {
+        sound: new Howl({
+          src: ['assets/sounds/prism-1.mp3']
+        }),
+        color: '#95a5a6',
+        shape: "polygon"
+      },
+      g: {
+        sound: new Howl({
+          src: ['assets/sounds/prism-2.mp3']
+        }),
+        color: '#f39c12',
+        shape: "other"
+      },
+      h: {
+        sound: new Howl({
+          src: ['assets/sounds/prism-3.mp3']
+        }),
+        color: '#d35400',
+        shape: "circle"
+      },
+      j: {
+        sound: new Howl({
+          src: ['assets/sounds/splits.mp3']
+        }),
+        color: '#1abc9c',
+        shape: "square"
+      },
+      k: {
+        sound: new Howl({
+          src: ['assets/sounds/squiggle.mp3']
+        }),
+        color: '#2ecc71',
+        shape: "star"
+      },
+      l: {
+        sound: new Howl({
+          src: ['assets/sounds/strike.mp3']
+        }),
+        color: '#3498db',
+        shape: "polygon"
+      },
+      z: {
+        sound: new Howl({
+          src: ['assets/sounds/suspension.mp3']
+        }),
+        color: '#9b59b6',
+        shape: "other"
+      },
+      x: {
+        sound: new Howl({
+          src: ['assets/sounds/timer.mp3']
+        }),
+        color: '#34495e',
+        shape: "circle"
+      },
+      c: {
+        sound: new Howl({
+          src: ['assets/sounds/ufo.mp3']
+        }),
+        color: '#16a085',
+        shape: "square"
+      },
+      v: {
+        sound: new Howl({
+          src: ['assets/sounds/veil.mp3']
+        }),
+        color: '#27ae60',
+        shape: "polygon"
+      },
+      b: {
+        sound: new Howl({
+          src: ['assets/sounds/wipe.mp3']
+        }),
+        color: '#2980b9',
+        shape: "other"
+      },
+      n: {
+        sound: new Howl({
+          src: ['assets/sounds/zig-zag.mp3']
+        }),
+        color: '#8e44ad',
+        shape: "circle"
+      },
+      m: {
+        sound: new Howl({
+          src: ['assets/sounds/moon.mp3']
+        }),
+        color: '#2c3e50',
+        shape: "square"
       }
     }
 
+    var text = new PointText(new Point(view.size.width / 2, view.size.height / 2));
+    text.justification = "center";
+    text.fillColor = "white";
+    text.fontSize = "24px";
+    text.content = "Play sounds using the alpha keys!"
+
+    function onResize() {
+      text.remove();
+      text = new PointText(new Point(view.size.width / 2, view.size.height / 2));
+      text.justification = "center";
+      text.fillColor = "white";
+      text.fontSize = "24px";
+      text.content = "Play sounds using the alpha keys!";
+    }
+
+    function onKeyDown(event) {
+      // If the key pressed is defined in keyData
+      if (keyData[event.key]) {
+        // When a key is pressed, create a shape in a random location
+        // This gives the bottom right position on the window size
+        var maxPoint = new Point(view.size.width, view.size.height);
+        // Creates a random point in range 0 to 1
+        var randomPoint = Point.random();
+        // Multiply the two together to get a random point in the viewport
+        var point = maxPoint * randomPoint;
+        // Plot the shape
+        if (keyData[event.key].shape === "circle") {
+          newShape = new Path.Circle(point, (Math.floor(Math.random() * 250) + 450));
+        } else if (keyData[event.key].shape === "star") {
+          newShape = new Path.Star(point, (Math.floor(Math.random() * 7) + 3), (Math.floor(Math.random() * 200) + 200), (Math.floor(Math.random() * 250) + 450));
+        } else if (keyData[event.key].shape === "square") {
+          var edge = (Math.floor(Math.random() * 250) + 450);
+          var size = new Size(edge, edge);
+          newShape = new Path.Rectangle(point, size);
+        } else if (keyData[event.key].shape === "polygon") {
+          newShape = new Path.RegularPolygon(point, (Math.floor(Math.random() * 3) + 3), (Math.floor(Math.random() * 250) + 450));
+        } else {
+          newShape = new Path.Rectangle(point, [(Math.floor(Math.random() * 250) + 450), (Math.floor(Math.random() * 250) + 450)]);
+        }
+        // Randomise the color of the shape
+        var rgbStr = "rgb(" + (Math.floor(Math.random() * 255) + 1) + ", " + (Math.floor(Math.random() * 255) + 1) + ", " + (Math.floor(Math.random() * 255) + 1) + ")";
+        newShape.fillColor = rgbStr;
+        // Set shape color
+        //newShape.fillColor = keyData[event.key].color;
+        // Add to the array
+        shapes.push(newShape);
+        //Play sound
+        keyData[event.key].sound.play();
+      }
+    }
+
+    function onFrame(event) {
+      // Each frame, change the fill color of the path slightly by adding 1 to its hue:
+      for (var i = 0; i < shapes.length; i++) {
+        shapes[i].fillColor.hue += 1;
+        shapes[i].scale(.9);
+        // remove the circle if its area < 1
+        if(shapes[i].area < 1){
+          // remove from canvas
+          shapes[i].remove();
+          // remove from array
+          shapes.splice(i, 1);
+          i--;
+        }
+      }
+    }
     </script>
   </head>
   <body>
